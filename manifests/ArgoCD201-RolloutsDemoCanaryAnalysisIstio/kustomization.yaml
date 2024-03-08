@@ -4,6 +4,7 @@ namespace: argo-rollouts-istio
 resources:
   - canary.yaml
   - analysis_template.yaml
+  - argosupport_template.yaml
 
 configurations:
   - https://argoproj.github.io/argo-rollouts/features/kustomize/rollout-transform.yaml
