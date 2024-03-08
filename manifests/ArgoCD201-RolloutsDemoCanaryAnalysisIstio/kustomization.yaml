@@ -3,7 +3,8 @@ kind: Kustomization
 resources:
   - canary.yaml
   - analysis_template.yaml
-  - argosupport_template.yaml
+  - ai_argosupport_template.yaml
+ # - ai_argosupportrun.yaml
 
 configurations:
   - https://argoproj.github.io/argo-rollouts/features/kustomize/rollout-transform.yaml
