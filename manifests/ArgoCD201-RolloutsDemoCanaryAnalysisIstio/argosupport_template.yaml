@@ -1,7 +1,0 @@
-apiVersion: argoproj.io/v1alpha1
-kind: ArgoSupportTemplate
-metadata:
-  labels:
-    app.kubernetes.io/instance: test2
-  name: argo-support
-  namespace: testns2

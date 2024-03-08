@@ -1,0 +1,14 @@
+apiVersion: argoproj.io/v1alpha1
+kind: AIArgoSupportTemplate
+metadata:
+  annotations:
+    kubectl.kubernetes.io/last-applied-configuration: >
+      {"apiVersion":"argoproj.io/v1alpha1","kind":"ArgoSupportTemplate","metadata":{"annotations":{},"labels":{"app.kubernetes.io/instance":"test2"},"name":"argo-support","namespace":"testns2"}}
+  creationTimestamp: '2024-03-08T20:47:23Z'
+  generation: 1
+  labels:
+    app.kubernetes.io/instance: test2
+  name: argo-support
+  namespace: testns2
+  resourceVersion: '1542285'
+  uid: 60a8e8c9-0289-487e-beb1-75e83d080265
