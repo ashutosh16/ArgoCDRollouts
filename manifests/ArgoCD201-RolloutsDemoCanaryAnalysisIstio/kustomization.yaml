@@ -3,7 +3,7 @@ kind: Kustomization
 resources:
   - canary.yaml
   - analysis_template.yaml
-  - argosupport_template.yaml
+  - argosupport-template.yaml
  # - argosupportrun.yaml
 
 configurations:
