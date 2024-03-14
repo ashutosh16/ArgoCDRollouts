@@ -1,0 +1,53 @@
+apiVersion: argoproj.io/v1alpha1
+kind: ArgoSupportTemplate
+metadata:
+  creationTimestamp: '2024-03-08T20:47:23Z'
+  generation: 1
+  labels:
+    app.kubernetes.io/instance: test2
+  name: genai-analysis
+  namespace: testns2
+  resourceVersion: '1542285'
+  uid: 60a8e8c9-0289-487e-beb1-75e83d080265
+spec:
+  args:
+    - name: "service-name " 
+  diagnostics:
+  - name: 'genai-analysis'
+    provider:
+      genos:
+      - url: "http://genos.intuit.com"
+        headers:
+      - name: "appid"
+        valueFrom:
+          secretKeyRef: 
+            key: "app.id"
+      retry:
+        code: "500"
+        frequency: 1
+      timeout: "120s"  
+    feedbackCollected: false
+    tokensBuilder:
+      resourceAggregators:
+      - kind: "rollout"
+        inlinePrompt:
+        - conditions: ""
+          canary: "Compare"
+          podHash: "compare the hash" 
+          phase: ""
+      - kind: "pod"
+        count: "1"
+        inlinePrompt:
+        - containerStatus: ""
+          canary: "Compare"
+          podHash: "compare the hash" 
+          phase: ""
+      logProcessor:
+        containerStatus: "notready"
+        inlinePrompt: ""
+        type: "error"
+    events:
+      inlinePrompt: ""
+      filters:
+      - type: "error"
+      namespace: "metadata.namespace"

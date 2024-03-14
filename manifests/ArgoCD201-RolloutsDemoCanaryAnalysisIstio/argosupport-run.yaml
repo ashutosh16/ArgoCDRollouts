@@ -1,0 +1,87 @@
+apiVersion: argoproj.io/v1alpha1
+kind: ArgoSupportRun
+metadata:
+  name: genai-run
+  namespace: testns2
+  labels:
+    app: istio-host-split
+  ownerReferences:
+  - apiVersion: argoproj.io/v1alpha1
+    blockOwnerDeletion: true
+    controller: true
+    kind: ArgoSupportTemplate
+    name: genai-analysis
+    uid: f763f983-17a0-4152-a59e-51fcd1af26f4
+spec:
+  args:
+    - name: "service-name " 
+  diagnostics:
+  - name: 'genai-analysis'
+    provider:
+      genos:
+      - url: "http://genos.intuit.com"
+        headers:
+      - name: "appid"
+        valueFrom:
+          secretKeyRef: 
+            key: "app.id"
+      retry:
+        code: "500"
+        frequency: 1
+      timeout: "120s"  
+    feedbackCollected: false
+    tokensBuilder:
+      resourceAggregators:
+      - kind: "rollout"
+        inlinePrompt:
+        - conditions: ""
+          canary: "Compare"
+          podHash: "compare the hash" 
+          phase: ""
+      - kind: "pod"
+        count: "1"
+        inlinePrompt:
+        - containerStatus: ""
+          canary: "Compare"
+          podHash: "compare the hash" 
+          phase: ""
+      logProcessor:
+        containerStatus: "notready"
+        inlinePrompt: ""
+        type: "error"
+    events:
+      inlinePrompt: ""
+      filters:
+      - type: "error"
+      namespace: "metadata.namespace"
+status:
+ startedAt: '2024-02-27T18:10:23Z'
+ finishedAt: '2024-02-27T18:11:03Z'
+ phase: completed
+ message: "Run Terminated"
+ diagnosticResults:
+ - tools:
+     tool:  # Empty value
+     - name: genai-analyser
+       resourceAnalyse:
+       - Kind: Rollout
+         linkedResource:
+       aiSummary: ""  # Empty string with double quotes
+       overallsummary:
+       eventssummary: ""  # Empty string with double quotes
+       logsummary:
+       feebackcollection:
+       - ispositive: true
+         notes: "nice"
+         finishedAt: '2024-02-27T18:11:03Z'
+       suggestionToUser: "Canary pod is deleted; Check the logs in splunk for pod: istio-host-split-5749c7f947-zm4l2"
+       suggestionToOperator: ""  # Empty string with double quotes
+       startedAt: '2024-02-27T18:10:23Z'
+       finishedAt: '2024-02-27T18:11:03Z'
+       help:
+        stackOverflow:
+        - link1:  # Empty value
+        - link2:  # Empty value
+        slack:
+         primary: #msaas-support
+         secondary: #msaas-support
