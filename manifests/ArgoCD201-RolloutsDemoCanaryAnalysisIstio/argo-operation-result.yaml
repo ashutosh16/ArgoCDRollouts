@@ -1,21 +1,23 @@
-apiVersion: operation.argoproj.io/v1alpha1
+apiVersion: argoproj.io/v1alpha1
 kind: ArgoOperationResult
 metadata:
-  name: YYYYMMDDHHMMSS
-  namespace: myns
+  creationTimestamp: '2024-03-08T20:47:23Z'
+  generation: 1
   labels:
-    app: istio-host-split
+    app.kubernetes.io/instance: test2
+  name: genai-analysis-result
+  namespace: testns2
   ownerReferences:
   - apiVersion: argoproj.io/v1alpha1
     blockOwnerDeletion: true
     controller: true
-    kind: ArgoSupportTemplate
-    name: myapp
+    kind: ArgoOperationTemplate
+    name: genai-analysis
+    uid: 3f220955-db20-422c-b1d0-71772bd50618
 spec:
   args:
     - name: service-name
   operations:
-   - tools:
      - plugin:
         argoproj/curl:
           url: https://example.com/
@@ -37,7 +39,7 @@ spec:
               key: app.id
         timeout: 30s
         retry: 3
-Status: 
+status: 
   startedAt: '2024-02-27T18:10:23Z'
   finishedAt: '2024-02-27T18:11:03Z'
   phase: completed

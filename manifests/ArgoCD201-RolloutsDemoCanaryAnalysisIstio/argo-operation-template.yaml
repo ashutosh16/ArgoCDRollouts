@@ -1,14 +1,12 @@
-apiVersion: operation.argoproj.io/v1alpha1
+apiVersion: argoproj.io/v1alpha1
 kind: ArgoOperationTemplate
 metadata:
-  name: YYYYMMDDHHMMSS
-  namespace: myns
+  creationTimestamp: '2024-03-08T20:47:23Z'
+  generation: 1
   labels:
-    app: istio-host-split
-    blockOwnerDeletion: true
-    controller: true
-    kind: ArgoSupportTemplate
-    name: myapp
+    app.kubernetes.io/instance: test2
+  name: genai-analysis
+  namespace: testns2
 spec:
   args:
     - name: service-name
