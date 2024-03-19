@@ -1,0 +1,37 @@
+apiVersion: operation.argoproj.io/v1alpha1
+kind: ArgoOperationTemplate
+metadata:
+  name: YYYYMMDDHHMMSS
+  namespace: myns
+  labels:
+    app: istio-host-split
+    blockOwnerDeletion: true
+    controller: true
+    kind: ArgoSupportTemplate
+    name: myapp
+spec:
+  args:
+    - name: service-name
+  operations:
+   - tools:
+     - plugin:
+        argoproj/curl:
+          url: https://example.com/
+          some_key: some_value
+     - name: gen-analysis
+       args:
+        - name: phase
+          value: degraded
+        - name: inlinePrompt
+          value: "Analyze condition or status conditions that are not phase ready"
+       feedback: false
+       externalProvider: 
+        url: http://genos.intuit.com
+        headers:
+        - name: appid
+          valueFrom:
+            secretKeyRef:
+              name: my-genos-secret  # Reference to the Secret containing appid
+              key: app.id
+        timeout: 30s
+        retry: 3
